@@ -17,9 +17,9 @@ print cms_base
 repoForFragments = cms_base+"/src/Configuration/GenProduction/python"
 dprocs = OrderedDict()
 ## final states
-#dprocs["HHTo4T"]    = ["ResonanceDecayFilter_example_HHTo4T_madgraph_pythia8_CP5_cff.py", "'https://raw.githubusercontent.com/cms-sw/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo4T_madgraph_pythia8_CP5_cff.py'"]
+dprocs["HHTo4T"]    = ["ResonanceDecayFilter_example_HHTo4T_madgraph_pythia8_CP5_cff.py", "'https://raw.githubusercontent.com/cms-sw/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo4T_madgraph_pythia8_CP5_cff.py'"]
 dprocs["HHTo4V"]    = ["ResonanceDecayFilter_example_HHTo4V_madgraph_pythia8_CP5_cff.py",     "'https://raw.githubusercontent.com/acarvalh/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo4V_madgraph_pythia8_CP5_cff.py'"] # Update to official when PR accepted
-#dprocs["HHTo2T2V"]  = ["ResonanceDecayFilter_example_HHTo2T2V_madgraph_pythia8_CP5_cff.py",    "'https://raw.githubusercontent.com/cms-sw/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo2T2V_madgraph_pythia8_CP5_cff.py'"]
+dprocs["HHTo2T2V"]  = ["ResonanceDecayFilter_example_HHTo2T2V_madgraph_pythia8_CP5_cff.py",    "'https://raw.githubusercontent.com/cms-sw/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo2T2V_madgraph_pythia8_CP5_cff.py'"]
 
 ## processes and masses
 ## find the gridpacks locatins from examples on MCM
