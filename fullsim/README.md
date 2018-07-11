@@ -1,26 +1,24 @@
 # Scripts to do private productions of fullsim
 
 The generation of MC is done in 4 steps:
-<\n>
+
 - LHE
-<\n>
+
 - premix step1
-<\n>
+
 - PreMix
-<\n>
+
 - miniAOD
-<\n>
-<\n>
+
 
 The LHE step is directly submitted to crab doing:
-<\n>
 
 """
 bash submit_lhe.sh
 """
 
-The processes and masses that are going to be submitted by the script above are entered on the file (see dprocs and gridpacks):
-<\n>
+The processes and masses that are going to be submitted by the script above are entered on the file (do_fragments_lhe.py --> see dprocs and gridpacks):
+
 
 """
 do_fragments_lhe.py

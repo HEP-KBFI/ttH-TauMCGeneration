@@ -42,15 +42,22 @@ config.Site.storageSite = 'T2_EE_Estonia'\n\
 #config.Site.whitelist = ['T2_CH_CERN']\n\
 " % (type, name, type, name, comment)
 
+cms_base = run_cmd("echo $CMSSW_BASE")
+cms_base = cms_base.replace("\n","")
+
 ### declare list of keys --- read from output of LHE instead
 procs = ["HHTo4T", "HHTo2T2V", "HHTo4V"]
 masses = [400, 700]
 ### do configs and crab to step 1
 template_step1 = "HHTo2T2V_1_cfg.py"
-procsToSub = open("procsToSub_premix_step1.txt", 'w')
-procsToSubAod = open("procsToSub_premix.txt", 'w')
-procsToSubMiniAod = open("procsToSub_premix.txt", 'w')
-for pp in [procsToSub, procsToSubAod, procsToSubMiniAod]
+procsToSub = open("procsToSub_premix_1.sh", 'w')
+procsToSubAod = open("procsToSub_premix.sh", 'w')
+procsToSubMiniAod = open("procsToSub_premix.sh", 'w')
+for pp in [procsToSub, procsToSubAod, procsToSubMiniAod] :
+    pp.write("#!/bin/bash \n\n")
+    pp.write("cd %s/src \n" % (cms_base))
+    pp.write("eval `scram runtime -sh`\n")
+    pp.write("scram b\n")
 for proc in procs :
     for mass in masses :
         nameprc = proc+"_M"+str(mass)
@@ -94,16 +101,6 @@ for proc in procs :
         file.write(write_crab('miniaod', nameprc))
         file.close()
         procsToSubMiniAod.write("crab submit "+newFile+"\n")
-
 procsToSub.close()
 procsToSubAod.close()
 procsToSubMiniAod.close()
-
-
-## step 2 configs and crab
-# #cmsDriver.py step2 --filein file:HHTo2T2V_step1.root --fileout file:HHTo2T2V_premix.root --mc --eventcontent AODSIM --runUnscheduled --datatier AODSIM --conditions 94X_mc2017_realistic_v11 --step RAW2DIGI,RECO,RECOSIM,EI --nThreads 8 --era Run2_2017 --python_filename HHTo2T2V_premix_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 10 || exit $? ;
-
-
-
-
-#    --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring \

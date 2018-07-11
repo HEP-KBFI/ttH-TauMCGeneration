@@ -16,13 +16,13 @@ cms_base = cms_base.replace("\n","/")
 print cms_base
 repoForFragments = cms_base+"/src/Configuration/GenProduction/python"
 dprocs = OrderedDict()
-
 ## final states
 dprocs["HHTo4T"]    = ["ResonanceDecayFilter_example_HHTo4T_madgraph_pythia8_CP5_cff.py", "'https://raw.githubusercontent.com/cms-sw/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo4T_madgraph_pythia8_CP5_cff.py'"]
-#dprocs["HHTo4V"]    = [1,     3004,      "Flips",       True]
+dprocs["HHTo4V"]    = ["ResonanceDecayFilter_example_HHTo4V_madgraph_pythia8_CP5_cff.py",     "'https://raw.githubusercontent.com/acarvalh/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo4V_madgraph_pythia8_CP5_cff.py'"] # Update to official when PR accepted
 dprocs["HHTo2T2V"]  = ["ResonanceDecayFilter_example_HHTo2T2V_madgraph_pythia8_CP5_cff.py",    "'https://raw.githubusercontent.com/cms-sw/genproductions/master/python/ThirteenTeV/Higgs/HH/ResonanceDecayFilter_example_HHTo2T2V_madgraph_pythia8_CP5_cff.py'"]
 
 ## processes and masses
+## find the gridpacks locatins from examples on MCM
 gridpacks = [
   [400, "/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.4.2/Radion_hh_narrow_M400/v1/Radion_hh_narrow_M400_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz"],
   [700, "/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.4.2/Radion_hh_narrow_M700/v1/Radion_hh_narrow_M700_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz"]
@@ -58,7 +58,6 @@ run_cmd("cd $CMSSW_BASE/src ; scram b -j 8")
 print toProcess
 procsToSub = open("procsToSub_lhe.txt", 'w')
 for pp, process in enumerate(toProcess) :
-   ## do the LHE
    nameprc = process.replace("ResonanceDecayFilter_example_","")
    nameprc = nameprc.replace("_cff.py","")
    process1 = "cmsDriver.py Configuration/GenProduction/python/%s \
@@ -101,11 +100,3 @@ config.Site.storageSite = 'T2_EE_Estonia'\n\
    print ("submission file ", newFile)
    procsToSub.write(newFile+"\n")
 procsToSub.close()
-   #os.system('crab submit %s' % (newFile))
-   #if pp == len(toProcess) - 1 :
-   #    print "Run one file to do the template file for the premix (%s) = 5 events ~ 11:40" % (nameprc)
-   #    run_cmd('cmsRun %s_lhe.py' % (nameprc))
-
-
-##
-#    --customise SLHCUpgradeSimulations/Configuration/postLS1Customs.customisePostLS1,Configuration/DataProcessing/Utils.addMonitoring

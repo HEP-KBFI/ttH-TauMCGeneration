@@ -18,3 +18,10 @@ cmsDriver.py step1 --fileout file:HHTo2T2V_step1.root --filein file:tree_lhe.roo
 echo $CMSSW_BASE
 source /cvmfs/cms.cern.ch/crab3/crab.sh
 python do_fragments.py
+### To submit to crab: you need wait the LHE/previous step be finished
+### and to adapt the HHTo*_M*_*_cfg.py with the crab path
+# source /cvmfs/cms.cern.ch/crab3/crab.sh
+# bash procsToSub_premix_1.sh
+# bash procsToSub_premix.sh
+# bash procsToSub_premix.sh
+## if you are submitting to crab: you shall be with the CMSSW enviroment loaded above
