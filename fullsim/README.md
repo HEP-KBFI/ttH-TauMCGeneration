@@ -17,24 +17,18 @@ The LHE step is directly submitted to crab doing:
 bash submit_lhe.sh
 """
 
-The processes and masses that are going to be submitted by the script above are entered on the file (do_fragments_lhe.py --> see dprocs and gridpacks):
+The processes and masses that are going to be submitted by the script above are entered on the file """do_fragments_lhe.py""" (see dprocs and gridpacks lists):
 
-
-"""
-do_fragments_lhe.py
-"""
-
-All the config/submission files to the folowing steps are obtained by the bellow:
+All the config/submission files to the following steps are obtained by the bellow:
 
 """
 bash configs_premix_miniaod.sh
 """
 
-The subsequent steps depend on the jobs for the anterior steps to be finished, therefore I did not made crab submission to be automatic.
+These subsequent steps depend on the jobs for the anterior steps to be finished, therefore I did not made crab submission to be automatic.
 
 To help being at least a bit automatic this last script produces a list of submission files for each step on a bash script.
-<\n>
 
 You will need to have right to use CRAB, and have a valid Grid certificate
-<\n>
+
 Check here: https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookRunningGrid#GetCert
