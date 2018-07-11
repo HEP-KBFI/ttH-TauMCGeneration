@@ -9,6 +9,7 @@ else
   scram p CMSSW CMSSW_9_3_6
   cd CMSSW_9_3_6/src
   eval `scram runtime -sh`
+  ### you only need the bellow if you are using a decay fragment that asks for H>VV V = W/V
   git cms-init
   git cms-addpkg GeneratorInterface/Pythia8Interface
   wget https://raw.githubusercontent.com/kandrosov/cmssw/9d21b36d1528279681ea7c17cff7d925d19b979e/GeneratorInterface/Pythia8Interface/interface/ResonanceDecayFilterHook.h -O GeneratorInterface/Pythia8Interface/interface/ResonanceDecayFilterHook.h
