@@ -2,7 +2,6 @@
 import os, sys, time,math
 import os, subprocess, sys
 from collections import OrderedDict
-from collections import OrderedDict
 
 def run_cmd(command):
   print "executing command = '%s'" % command
@@ -40,7 +39,7 @@ config.JobType.numCores = 8\n\
 \n\
 config.section_('Data')\n\
 config.Data.inputDataset = '%s'\n\
-#config.Data.inputDBS = 'phys03'\n\
+config.Data.inputDBS = 'phys03'\n\
 config.Data.ignoreLocality = True\n\
 config.Data.splitting = 'Automatic'\n\
 config.Data.publication = True\n\
@@ -67,7 +66,7 @@ for pp in [procsToSub, procsToSubAod, procsToSubMiniAod] :
     pp.write("#!/bin/bash \n\n")
     pp.write("cd %s/src \n" % (cms_base))
     pp.write("eval `scram runtime -sh`\n")
-    pp.write("scram b\n")
+    pp.write("cd -\n")
     pp.write("voms-proxy-init\n")
 #for proc in procs :
 #    for mass in masses :
@@ -77,6 +76,7 @@ with open("pufiles.txt", 'r') as pufile :
 for key in dprocsLHE.keys() :
         nameprc = dprocsLHE[key][0]
         confFile = template_step1.replace("HHTo2T2V", nameprc)
+        """
         with open(confFile, 'w') as out_file:
             with open(template_step1, 'r') as in_file:
                 for line in in_file:
@@ -93,6 +93,7 @@ for key in dprocsLHE.keys() :
         file.close()
         print ("submission file ", newFile)
         procsToSub.write("crab submit "+newFile+"\n")
+        """
         ### do configs to step2
         process1 = "cmsDriver.py step2 --filein file:%s_step1.root\
  --fileout file:%s_premix.root --mc --eventcontent AODSIM --runUnscheduled \
@@ -100,7 +101,7 @@ for key in dprocsLHE.keys() :
  --step RAW2DIGI,RECO,RECOSIM,EI --nThreads 8 --era Run2_2017 \
  --python_filename %s_premix_cfg.py --no_exec -n 10 " % (nameprc, nameprc, nameprc)
         print process1
-        #run_cmd(process1)
+        run_cmd(process1)
         newFile = "submit_"+nameprc+"_premix.py"
         file = open(newFile, 'w')
         file.write(write_crab('premix', dprocsLHE[key][0], "PLACEHOLDER", nameprc+"_premix_cfg.py"))
@@ -111,7 +112,7 @@ for key in dprocsLHE.keys() :
  --mc --eventcontent MINIAODSIM --runUnscheduled --datatier MINIAODSIM \
  --conditions 94X_mc2017_realistic_v11 --step PAT --nThreads 8 \
  --era Run2_2017 --python_filename %s_miniaod_cfg.py --no_exec -n 10 " % (nameprc, nameprc)
-        #run_cmd(process1)
+        run_cmd(process1)
         print process1
         newFile = "submit_"+nameprc+"_miniaod.py"
         file = open(newFile, 'w')
